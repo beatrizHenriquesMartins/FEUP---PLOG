@@ -89,8 +89,8 @@ imprimirSeparadorColunas:-
         write('|     |     |     |     |     |     |     |     |').
 
 % Imprime uma casa do tabuleiro com a peca "Peca"
-imprimeCasa(Peca, L):-
-        L = 2, write('  '), write(Peca), write(' ').      
+imprimeCasa(Peca, 2):-
+        write('  '), write(Peca), write(' ').      
 imprimeCasa(_, _):-
         write('     ').
         
@@ -115,31 +115,31 @@ imprimirLinhas([Linha | T], [NLinha | ListaLinhas]):-
         imprimirLinhas(T, ListaLinhas).
 
 % Imprime as pecas capturadas por cada um dos jogadores
-imprimirListaPecasCapturadas([]).
+/* imprimirListaPecasCapturadas([]).
 imprimirListaPecasCapturadas([H | T]):-
         write(H), write(' '),
-        imprimirListaPecasCapturadas(T).
+        imprimirListaPecasCapturadas(T). */ 
 
 % Imprime uma lista de pecas capturadas pelo jogador "Jogador"
-imprimirListaPecasCapturadas(Jogador, ListaPecas):-
+/* imprimirListaPecasCapturadas(Jogador, ListaPecas):-
         write('- Jogador '), write(Jogador), nl,
-        imprimirListaPecasCapturadas(ListaPecas).
+        imprimirListaPecasCapturadas(ListaPecas). */
 
 % Imprime as pecas capturadas pelos dois jogadores
-imprimirPecasCapturadas:-
+/* imprimirPecasCapturadas:-
         pecasCapturadas(branco, Lista1),
         pecasCapturadas(preto, Lista2), nl,
         write(' __________________'), nl, write('|_Pecas_Capturadas_|'), nl,
         imprimirListaPecasCapturadas(branco, Lista1), nl, nl,
-        imprimirListaPecasCapturadas(preto, Lista2).
+        imprimirListaPecasCapturadas(preto, Lista2). */
         
 % Imprime o tabuleiro com o estado atual do jogo
 imprimirTabuleiro([H | T]):-
         imprimirSeparadorInicial, nl,
         numeroLinhas(ListaLinhas),
         imprimirLinhas([H | T], ListaLinhas), nl,
-        impimirIdentificadoresColunas, nl,
-        imprimirPecasCapturadas, nl, nl. 
+        impimirIdentificadoresColunas, nl.
+        % imprimirPecasCapturadas, nl, nl. 
 
 % Inicia o jogo Corrida de Reis
 começarCorridaReis:-
