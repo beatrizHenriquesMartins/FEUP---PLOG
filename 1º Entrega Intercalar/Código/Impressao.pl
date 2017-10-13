@@ -1,13 +1,14 @@
-/* Nomenclatura das peças
-        __________|_Peças_Pretas_|_Peças_Brancas
-        Rei      |      k        |      kk     |
-        Rainha   |      q        |      qq     |
-        Torre 1  |      t1       |      tt1    |
-        Torre 2  |      t2       |      tt2    | 
-        Bispo 1  |      b1       |      bb1    | 
-        Bispo 2  |      b2       |      bb1    |
-        Cavalo 1 |      c1       |      cc1    |
-        Cavalo 2 |      c2       |      cc2    |
+/* 
+Nomenclatura das peças
+        _________|_Peças_Pretas_|_Peças_Brancas|
+        Rei      |      k1       |      k2     |
+        Rainha   |      q1       |      q2     |
+        Torre 1  |      t1       |      t2     |
+        Torre 2  |      t1       |      t2     | 
+        Bispo 1  |      b1       |      b2     | 
+        Bispo 2  |      b1       |      b2     |
+        Cavalo 1 |      c1       |      c2     |
+        Cavalo 2 |      c1       |      c2     |
 
 Outras nomenclaturas:
         vazio - casa do tabuleiro vazia.
@@ -44,16 +45,16 @@ ____________________
 |_Pecas_Capturadas_|
 
 @Jogador Branco
-k, q, t1, t2, b1, b2, c1, c2
+k1, q1, t1, t1, b1, b1, c1, c1
 
 @Jogador Preto
-kk, qq, tt1, tt2, bb1, bb2, cc1, cc2 
+k2, q2, t2, t2, b2, b2, c2, c2 
 
 */
 
 % pecasCapturadas(JogadorID, [ListaPecasCapturadas])
-pecasCapturadas(branco,[q, t1, t2, b1, b2, c2]).
-pecasCapturadas(preto,[tt1, bb2, cc1, cc2]).
+pecasCapturadas(branco,[q1, t1, t1, b1, b1, c1]).
+pecasCapturadas(preto,[t2, b2, c2, c2]).
 
 % Inicializa o tabuleiro com as peças na casa correta
 inicializarTabuleiro(
@@ -64,8 +65,8 @@ inicializarTabuleiro(
 [vazio,vazio,vazio,vazio,vazio,vazio,vazio,vazio],
 [vazio,vazio,vazio,vazio,vazio,vazio,vazio,vazio],
 [vazio,vazio,vazio,vazio,vazio,vazio,vazio,vazio],
-[k , t2 , b2 , c2 , cc2, bb2 , tt2 , kk],
-[q , t1 , b1 , c1 , cc1, bb1 , tt1 , qq]
+[k1 , t1 , b1 , c1 , c2, b2 , t2 , k2],
+[q1 , t1 , b1 , c1 , c2, b2 , t2 , q2]
 ]).
 
 % Imprime as letras que permitem identificar uma coluna do tabuleiro
@@ -89,11 +90,7 @@ imprimirSeparadorColunas:-
 
 % Imprime uma casa do tabuleiro com a peca "Peca"
 imprimeCasa(Peca, L):-
-        L = 1, write('  '), write(Peca), write('  ').
-imprimeCasa(Peca, L):-
-        L = 2, write('  '), write(Peca), write(' ').
-imprimeCasa(Peca, L):-
-        L = 3, write(' '), write(Peca), write(' ').        
+        L = 2, write('  '), write(Peca), write(' ').      
 imprimeCasa(_, _):-
         write('     ').
         
