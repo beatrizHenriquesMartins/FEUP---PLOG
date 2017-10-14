@@ -89,16 +89,16 @@ imprimirSeparadorColunas:-
         write('|     |     |     |     |     |     |     |     |').
 
 % Imprime uma casa do tabuleiro com a peca "Peca"
-imprimeCasa(Peca, 2):-
+imprimirCasa(Peca, 2):-
         write('  '), write(Peca), write(' ').      
-imprimeCasa(_, _):-
+imprimirCasa(_, _):-
         write('     ').
         
 % Imprime as pecas que estao numa determinada linha do tabuleiro
 imprimirPecasLinha([]).
 imprimirPecasLinha([H | T]):- 
         atom_length(H, L), write('|'),
-        imprimeCasa(H, L),
+        imprimirCasa(H, L),
         imprimirPecasLinha(T).
 
 % Imprime a linha numero "NLinha" do tabuleiro
