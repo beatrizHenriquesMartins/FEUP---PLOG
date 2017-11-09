@@ -221,14 +221,14 @@ imprimirMenuIncial :-
         write(' |           _  __  _                                  | '), nl,
         write(' |          | |/ / (_)  ____     ____   ___            | '), nl,
         write(' |          |   /  | | |  _ \\   / _  | / __|           | '), nl,
-        write(' |          | . \\  | | | | | | | (_| | \\__ \\           | '), nl,
+        write(' |          |   \\  | | | | | | | (_| | \\__ \\           | '), nl,
         write(' |          |_|\\_\\ |_| |_| |_|  \\__, | |___/           | '), nl,
         write(' |                              |___/                  | '), nl,
         write(' |                                                     | '), nl,
         write(' |                                                     | '), nl,
-        write(' |               Beatriz Henriques                     | '), nl,
-        write(' |                Beatriz Velho                        | '), nl,
-        write(' |               PLOG - FEUP 17/18                     | '), nl,
+        write(' |                 Beatriz Henriques                   | '), nl,
+        write(' |                   Beatriz Velho                     | '), nl,
+        write(' |                 PLOG - FEUP 17/18                   | '), nl,
         write(' |                                                     | '), nl,
         write(' |-----------------------------------------------------| '), nl,
         write(' |                                                     | '), nl,
@@ -239,8 +239,8 @@ imprimirMenuIncial :-
         write(' |         4. How to play                              | '), nl,
         write(' |         5. Exit                                     | '), nl,
         write(' |                                                     | '), nl,
-        write(' |               Choose an option                      | '), nl,
-        write(' |-----------------------------------------------------| '), nl.
+        write(' |                   Choose an option                  | '), nl,
+        write(' |_____________________________________________________| '), nl.
                      
 % Imprime o menu de ajuda
 imprimirMenuAjuda :-
@@ -250,7 +250,7 @@ imprimirMenuAjuda :-
         write(' |           | |_| |/ _ \\ \\ /\\ / / | __/ _ \\           | '), nl,
         write(' |           |  _  | (_) \\ V  V /  | || (_) |          | '), nl,
         write(' |           |_| |_|\\___/ __/\\_/   \\__\\___/            | '), nl,
-        write(' |                  ____ | | __ _ _   _                 |'), nl,
+        write(' |                  ____ | | __ _ _   _                |'), nl,
         write(' |                 |  _ \\| |/ _` | | | |               | '), nl, 
         write(' |                 | |_) | | (_| | |_| |               | '), nl, 
         write(' |                 | .__/|_|\\__,_|\\__, |               | '), nl,
@@ -274,4 +274,37 @@ imprimirMenuAjuda :-
 
 % Inicia o jogo Corrida de Reis
 começarCorridaReis:-
-        inicializarTabuleiro(T), imprimirTabuleiro(T). 
+        inicializarTabuleiro(T), 
+        imprimirTabuleiro(T). 
+
+% Selecciona o modo de jogo
+selecionarModoJogo :-
+        read(Action),
+        Action > 0,
+        Action < 6,
+        modoJogo(Action).
+
+% humano vs humano
+modoJogo(1) :-
+        começarCorridaReis.
+
+% computador vs humanos
+modoJogo(2) :-
+        começarCorridaReis.
+
+% computador vs computador
+modoJogo(3) :-
+        começarCorridaReis.
+
+% menu de ajuda
+modoJogo(4) :-
+        imprimirMenuAjuda.
+
+% sair
+modoJogo(5) :-
+        write('Exit!').
+
+% inicia o jogo
+start :-
+        imprimirMenuIncial,
+        selecionarModoJogo.
