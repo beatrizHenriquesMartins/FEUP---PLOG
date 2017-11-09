@@ -243,8 +243,35 @@ imprimirMenuIncial :-
         write(' |-----------------------------------------------------| '), nl.
                      
 % Imprime o menu de ajuda
-%imprimirMenuAjuda :-
-%        .
+imprimirMenuAjuda :-
+        write(' _______________________________________________________ '), nl,
+        write(' |            _   _                 _                  | '), nl,
+        write(' |           | | | | _____      __ | |_ ___            | '), nl,
+        write(' |           | |_| |/ _ \\ \\ /\\ / / | __/ _ \\           | '), nl,
+        write(' |           |  _  | (_) \\ V  V /  | || (_) |          | '), nl,
+        write(' |           |_| |_|\\___/ __/\\_/   \\__\\___/            | '), nl,
+        write(' |                  ____ | | __ _ _   _                 |'), nl,
+        write(' |                 |  _ \\| |/ _` | | | |               | '), nl, 
+        write(' |                 | |_) | | (_| | |_| |               | '), nl, 
+        write(' |                 | .__/|_|\\__,_|\\__, |               | '), nl,
+        write(' |                 |_|            |___/                | '), nl, 
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl, 
+        write(' |-----------------------------------------------------| '), nl.
+
 % Inicia o jogo Corrida de Reis
 começarCorridaReis:-
         inicializarTabuleiro(T), imprimirTabuleiro(T). 
