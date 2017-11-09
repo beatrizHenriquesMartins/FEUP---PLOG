@@ -50,6 +50,71 @@ k1, q1, t1, t1, b1, b1, c1, c1
 @Jogador Preto
 k2, q2, t2, t2, b2, b2, c2, c2 
 
+****************
+* Menu Inicial *
+****************
+_______________________________________________________ 
+|                                                     | 
+|                                                     | 
+|       ____                   _                      | 
+|      |  _ \    __ _    ___  (_)  ____     ____      | 
+|      | |_) |  / _` |  / __| | | |  _ \   / _  |     | 
+|      |  _ <  | (_| | | (__  | | | | | | | (_| |     | 
+|      |_| \_\  \__,_|  \___| |_| |_| |_|  \__, |     | 
+|                                          |___/      | 
+|           _  __  _                                  | 
+|          | |/ / (_)  ____     ____   ___            | 
+|          |   /  | | |  _ \   / _  | / __|           | 
+|          | . \  | | | | | | | (_| | \__ \           | 
+|          |_|\_\ |_| |_| |_|  \__, | |___/           | 
+|                              |___/                  | 
+|                                                     | 
+|                                                     | 
+|               Beatriz Henriques                     | 
+|                Beatriz Velho                        | 
+|               PLOG - FEUP 17/18                     | 
+|-----------------------------------------------------| 
+|                                                     | 
+|                                                     | 
+|         1. Start Game Player vs Player              | 
+|         2. Start Game PC vs Player                  | 
+|         3. Start Game PC vs PC                      | 
+|         4. How to play                              | 
+|         5. Exit                                     | 
+|                                                     | 
+|               Choose an option                      | 
+|-----------------------------------------------------| 
+
+*****************
+* Menu de Ajuda *
+*****************
+_______________________________________________________ 
+|            _   _                 _                  | 
+|           | | | | _____      __ | |_ ___            | 
+|           | |_| |/ _ \ \ /\ / / | __/ _ \           | 
+|           |  _  | (_) \ V  V /  | || (_) |          |
+|           |_| |_|\___/ __/\_/   \__\___/            | 
+|                  ____ | | __ _ _   _                |
+|                 |  _ \| |/ _` | | | |               | 
+|                 | |_) | | (_| | |_| |               | 
+|                 | .__/|_|\__,_|\__, |               | 
+|                 |_|            |___/                | 
+|                                                     | 
+|                                                     | 
+|                                                     | 
+|                                                     | 
+|                                                     | 
+|                                                     | 
+|                                                     | 
+|                                                     | 
+|                                                     | 
+|                                                     |
+|                                                     | 
+|                                                     | 
+|                                                     | 
+|                                                     | 
+|                                                     | 
+|-----------------------------------------------------|
 */
 
 % pecasCapturadas(JogadorID, [ListaPecasCapturadas])
@@ -141,6 +206,108 @@ imprimirTabuleiro([H | T]):-
         impimirIdentificadoresColunas, nl.
         % imprimirPecasCapturadas, nl, nl. 
 
+% Imprime o menu inicial
+imprimirMenuIncial :-
+        nl, nl, nl,
+        write(' _______________________________________________________ '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |       ____                   _                      | '), nl,
+        write(' |      |  _ \\    __ _    ___  (_)  ____     ____      | '), nl,
+        write(' |      | |_) |  / _` |  / __| | | |  _ \\   / _  |     | '), nl,
+        write(' |      |  _ <  | (_| | | (__  | | | | | | | (_| |     | '), nl,
+        write(' |      |_| \\_\\  \\__,_|  \\___| |_| |_| |_|  \\__, |     | '), nl,
+        write(' |                                          |___/      | '), nl,
+        write(' |           _  __  _                                  | '), nl,
+        write(' |          | |/ / (_)  ____     ____   ___            | '), nl,
+        write(' |          |   /  | | |  _ \\   / _  | / __|           | '), nl,
+        write(' |          |   \\  | | | | | | | (_| | \\__ \\           | '), nl,
+        write(' |          |_|\\_\\ |_| |_| |_|  \\__, | |___/           | '), nl,
+        write(' |                              |___/                  | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                 Beatriz Henriques                   | '), nl,
+        write(' |                   Beatriz Velho                     | '), nl,
+        write(' |                 PLOG - FEUP 17/18                   | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |-----------------------------------------------------| '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |         1. Start Game Player vs Player              | '), nl,
+        write(' |         2. Start Game PC vs Player                  | '), nl,
+        write(' |         3. Start Game PC vs PC                      | '), nl,
+        write(' |         4. How to play                              | '), nl,
+        write(' |         5. Exit                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                   Choose an option                  | '), nl,
+        write(' |_____________________________________________________| '), nl.
+                     
+% Imprime o menu de ajuda
+imprimirMenuAjuda :-
+        write(' _______________________________________________________ '), nl,
+        write(' |            _   _                 _                  | '), nl,
+        write(' |           | | | | _____      __ | |_ ___            | '), nl,
+        write(' |           | |_| |/ _ \\ \\ /\\ / / | __/ _ \\           | '), nl,
+        write(' |           |  _  | (_) \\ V  V /  | || (_) |          | '), nl,
+        write(' |           |_| |_|\\___/ __/\\_/   \\__\\___/            | '), nl,
+        write(' |                  ____ | | __ _ _   _                |'), nl,
+        write(' |                 |  _ \\| |/ _` | | | |               | '), nl, 
+        write(' |                 | |_) | | (_| | |_| |               | '), nl, 
+        write(' |                 | .__/|_|\\__,_|\\__, |               | '), nl,
+        write(' |                 |_|            |___/                | '), nl, 
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl, 
+        write(' |                                                     | '), nl, 
+        write(' |-----------------------------------------------------| '), nl.
+
 % Inicia o jogo Corrida de Reis
 começarCorridaReis:-
-        inicializarTabuleiro(T), imprimirTabuleiro(T). 
+        inicializarTabuleiro(T), 
+        imprimirTabuleiro(T). 
+
+% Selecciona o modo de jogo
+selecionarModoJogo :-
+        read(Action),
+        Action > 0,
+        Action < 6,
+        modoJogo(Action).
+
+% humano vs humano
+modoJogo(1) :-
+        começarCorridaReis.
+
+% computador vs humanos
+modoJogo(2) :-
+        começarCorridaReis.
+
+% computador vs computador
+modoJogo(3) :-
+        começarCorridaReis.
+
+% menu de ajuda
+modoJogo(4) :-
+        imprimirMenuAjuda.
+
+% sair
+modoJogo(5) :-
+        write('Exit!').
+
+
+% *****************
+% * inicia o jogo *
+% *****************
+start :-
+        imprimirMenuIncial,
+        selecionarModoJogo.
