@@ -304,7 +304,10 @@ modoJogo(4) :-
 modoJogo(5) :-
         write('Exit!').
 
-% inicia o jogo
+
+% *****************
+% * inicia o jogo *
+% *****************
 start :-
         imprimirMenuIncial,
         selecionarModoJogo.
