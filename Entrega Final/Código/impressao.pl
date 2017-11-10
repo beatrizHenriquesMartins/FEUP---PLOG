@@ -88,32 +88,36 @@ _______________________________________________________
 *****************
 * Menu de Ajuda *
 *****************
-_______________________________________________________ 
-|            _   _                 _                  | 
-|           | | | | _____      __ | |_ ___            | 
-|           | |_| |/ _ \ \ /\ / / | __/ _ \           | 
-|           |  _  | (_) \ V  V /  | || (_) |          |
-|           |_| |_|\___/ __/\_/   \__\___/            | 
-|                  ____ | | __ _ _   _                |
-|                 |  _ \| |/ _` | | | |               | 
-|                 | |_) | | (_| | |_| |               | 
-|                 | .__/|_|\__,_|\__, |               | 
-|                 |_|            |___/                | 
-|                                                     | 
-|                                                     | 
-|                                                     | 
-|                                                     | 
-|                                                     | 
-|                                                     | 
-|                                                     | 
-|                                                     | 
-|                                                     | 
+_______________________________________________________
 |                                                     |
-|                                                     | 
-|                                                     | 
-|                                                     | 
-|                                                     | 
-|                                                     | 
+|                                                     |
+|            _   _                 _                  |
+|           | | | | _____      __ | |_ ___            |
+|           | |_| |/ _ \ \ /\ / / | __/ _ \           |
+|           |  _  | (_) \ V  V /  | || (_) |          |
+|           |_| |_|\\___/\_/\_/   \__\\___/           |
+|                  ____ | | __ _ _   _                |
+|                 |  _ \| |/ _` | | | |               |
+|                 | |_) | | (_| | |_| |               |
+|                 | .__/|_|\__,_|\__, |               |
+|                 |_|            |___/                |
+|                                                     |
+|                                                     |
+|                                                     |
+|   Objective                                         |
+|       The objective of the game is to be the first  |
+|     to arrive with the KING at the last line of     |
+|     the board.                                      |
+|                                                     |
+|   Rules                                             |
+|       The game is played with the chess rules, but  |
+|     you can not use the checkmate.                  |
+|       This game has one board, two players (white   |
+|     and black). Each player have 1 king, 1 queen,   |
+|     2 towers, 2 bishop and 2 horses.                |
+|                                                     |
+|                    Click on 1                       |
+|                                                     |
 |-----------------------------------------------------|
 */
 
@@ -207,7 +211,7 @@ imprimirTabuleiro([H | T]):-
         % imprimirPecasCapturadas, nl, nl. 
 
 % Inicia o jogo Corrida de Reis
-começarCorridaReis:-
+comecarCorridaReis:-
         inicializarTabuleiro(T), imprimirTabuleiro(T). 
 
 % Imprime o menu inicial
@@ -249,33 +253,37 @@ imprimirMenuIncial :-
 % Imprime o menu de ajuda
 imprimirMenuAjuda :-
         write(' _______________________________________________________ '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
         write(' |            _   _                 _                  | '), nl,
         write(' |           | | | | _____      __ | |_ ___            | '), nl,
         write(' |           | |_| |/ _ \\ \\ /\\ / / | __/ _ \\           | '), nl,
         write(' |           |  _  | (_) \\ V  V /  | || (_) |          | '), nl,
-        write(' |           |_| |_|\\___/ __/\\_/   \\__\\___/            | '), nl,
-        write(' |                  ____ | | __ _ _   _                |'), nl,
-        write(' |                 |  _ \\| |/ _` | | | |               | '), nl, 
-        write(' |                 | |_) | | (_| | |_| |               | '), nl, 
+        write(' |           |_| |_|\\___/ \\_/\\_/    \\__\\___/           | '), nl,
+        write(' |                  ____ | | __ _ _   _                | '), nl,
+        write(' |                 |  _ \\| |/ _` | | | |               | '), nl,
+        write(' |                 | |_) | | (_| | |_| |               | '), nl,
         write(' |                 | .__/|_|\\__,_|\\__, |               | '), nl,
-        write(' |                 |_|            |___/                | '), nl, 
-        write(' |                                                     | '), nl, 
-        write(' |                                                     | '), nl, 
-        write(' |                                                     | '), nl,
-        write(' |                                                     | '), nl,
-        write(' |                                                     | '), nl, 
+        write(' |                 |_|            |___/                | '), nl,
         write(' |                                                     | '), nl,
         write(' |                                                     | '), nl,
         write(' |                                                     | '), nl,
+        write(' |   Objective                                         | '), nl,
+        write(' |       The objective of the game is to be the first  | '), nl,
+        write(' |     to arrive with the KING at the last line of     | '), nl,
+        write(' |     the board.                                      | '), nl,
         write(' |                                                     | '), nl,
+        write(' |   Rules                                             | '), nl,
+        write(' |       The game is played with the chess rules, but  | '), nl,
+        write(' |     you can not use the checkmate.                  | '), nl,
+        write(' |       This game has one board, two players (white   | '), nl,
+        write(' |     and black). Each player have 1 king, 1 queen,   | '), nl,
+        write(' |     2 towers, 2 bishop and 2 horses.                | '), nl,
         write(' |                                                     | '), nl,
-        write(' |                                                     | '), nl, 
+        write(' |                    Click on 1                       | '), nl,
         write(' |                                                     | '), nl,
-        write(' |                                                     | '), nl, 
-        write(' |                                                     | '), nl, 
-        write(' |                                                     | '), nl, 
         write(' |-----------------------------------------------------| '), nl.
-
+        
 % Selecciona o modo de jogo
 selecionarModoJogo :-
         repeat,
@@ -286,19 +294,24 @@ selecionarModoJogo :-
 
 % humano vs humano
 modoJogo(1) :-
-        começarCorridaReis.
+        comecarCorridaReis.
 
 % computador vs humanos
 modoJogo(2) :-
-        começarCorridaReis.
+        comecarCorridaReis.
 
 % computador vs computador
 modoJogo(3) :-
-        começarCorridaReis.
+        comecarCorridaReis.
 
 % menu de ajuda
 modoJogo(4) :-
-        imprimirMenuAjuda.
+        imprimirMenuAjuda,
+        repeat,
+        read(Action),
+        Action > 0,
+        Action < 2,
+        inicioAplicacao.
 
 % sair
 modoJogo(5) :-
@@ -309,5 +322,8 @@ modoJogo(5) :-
 % * inicia o jogo *
 % *****************
 start :-
+        inicioAplicacao.
+
+inicioAplicacao :-
         imprimirMenuIncial,
         selecionarModoJogo.
