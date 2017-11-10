@@ -278,6 +278,7 @@ imprimirMenuAjuda :-
 
 % Selecciona o modo de jogo
 selecionarModoJogo :-
+        repeat,
         read(Action),
         Action > 0,
         Action < 6,
