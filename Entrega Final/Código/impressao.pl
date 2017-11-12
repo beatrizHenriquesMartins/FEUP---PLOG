@@ -160,44 +160,56 @@ _______________________________________________________
 pecasCapturadas(branco,[q1, t1, t1, b1, b1, c1]).
 pecasCapturadas(preto,[t2, b2, c2, c2]).
 
-% Inicializa o tabuleiro com as peças na casa correta
-inicializarTabuleiro(
-[
-[vazio,vazio,vazio,vazio,vazio,vazio,vazio,vazio],
-[vazio,vazio,vazio,vazio,vazio,vazio,vazio,vazio],
-[vazio,vazio,vazio,vazio,vazio,vazio,vazio,vazio],
-[vazio,vazio,vazio,vazio,vazio,vazio,vazio,vazio],
-[vazio,vazio,vazio,vazio,vazio,vazio,vazio,vazio],
-[vazio,vazio,vazio,vazio,vazio,vazio,vazio,vazio],
-[k1 , t1 , b1 , c1 , c2, b2 , t2 , k2],
-[q1 , t1 , b1 , c1 , c2, b2 , t2 , q2]
-]).
+% Imprime as pecas capturadas por cada um dos jogadores
+/*
+imprimirListaPecasCapturadas([]).
+imprimirListaPecasCapturadas([H | T]):-
+        write(H), write(' '),
+        imprimirListaPecasCapturadas(T).
+*/ 
 
+% Imprime uma lista de pecas capturadas pelo jogador "Jogador"
+/*
+imprimirListaPecasCapturadas(Jogador, ListaPecas):-
+        write('- Jogador '), write(Jogador), nl,
+        imprimirListaPecasCapturadas(ListaPecas).
+*/
+
+% Imprime as pecas capturadas pelos dois jogadores
+/*
+imprimirPecasCapturadas:-
+        pecasCapturadas(branco, Lista1),
+        pecasCapturadas(preto, Lista2), nl,
+        write(' __________________'), nl, write('|_Pecas_Capturadas_|'), nl,
+        imprimirListaPecasCapturadas(branco, Lista1), nl, nl,
+        imprimirListaPecasCapturadas(preto, Lista2).
+*/
+        
 % Imprime as letras que permitem identificar uma coluna do tabuleiro
 impimirIdentificadoresColunas:-
-        write('    a     b     c     d     e     f     g     h').
+        write('   1     2     3     4     5     6     7     8').
 
 % Lista com os numeros que permitem identificar uma linha do tabuleiro
-numeroLinhas(['8','7','6','5','4','3','2','1']).
+numeroLinhas(['1','2','3','4','5','6','7','8']).
 
 % Imprime o limite superior do tabuleiro
 imprimirSeparadorInicial:-
-        write('  _______________________________________________').
+        write(' _______________________________________________').
 
 % Imprime o separador de linhas do tabuleiro
 imprimirSeparadorLinhas:-
-        write(' |_____|_____|_____|_____|_____|_____|_____|_____|  ').
+        write('|_____|_____|_____|_____|_____|_____|_____|_____|  ').
 
 % Imprime o separador de colunas do tabuleiro
 imprimirSeparadorColunas:-
-        write('  |     |     |     |     |     |     |     |     |').
+        write('|     |     |     |     |     |     |     |     |').
 
 % Imprime uma casa do tabuleiro com a peca "Peca"
-imprimirCasa(Peca, 2):-
-        write('  '), write(Peca), write(' ').      
+imprimirCasa(Peca, 1):-
+        write('  '), write(Peca), write('  ').      
 imprimirCasa(_, _):-
         write('     ').
-        
+
 % Imprime as pecas que estao numa determinada linha do tabuleiro
 imprimirPecasLinha([]).
 imprimirPecasLinha([H | T]):- 
@@ -206,51 +218,51 @@ imprimirPecasLinha([H | T]):-
         imprimirPecasLinha(T).
 
 % Imprime a linha numero "NLinha" do tabuleiro
-imprimirLinha([] , []).
-imprimirLinha(Linha , NLinha):-
+imprimirLinha([],[]).
+
+imprimirLinha(Linha,NLinha):-
         imprimirSeparadorColunas, nl,
         imprimirPecasLinha(Linha), write('|   '), write(NLinha), nl,
         imprimirSeparadorLinhas, nl.
 
 % Imprime todas as linhas do tabuleiro
 imprimirLinhas([],[]). 
-imprimirLinhas([Linha | T], [NLinha | ListaLinhas]):- 
+
+imprimirLinhas([Linha|T],[NLinha|ListaLinhas]):- 
         imprimirLinha(Linha, NLinha), 
         imprimirLinhas(T, ListaLinhas).
 
-% Imprime as pecas capturadas por cada um dos jogadores
-/* imprimirListaPecasCapturadas([]).
-imprimirListaPecasCapturadas([H | T]):-
-        write(H), write(' '),
-        imprimirListaPecasCapturadas(T). */ 
-
-% Imprime uma lista de pecas capturadas pelo jogador "Jogador"
-/* imprimirListaPecasCapturadas(Jogador, ListaPecas):-
-        write('- Jogador '), write(Jogador), nl,
-        imprimirListaPecasCapturadas(ListaPecas). */
-
-% Imprime as pecas capturadas pelos dois jogadores
-/* imprimirPecasCapturadas:-
-        pecasCapturadas(branco, Lista1),
-        pecasCapturadas(preto, Lista2), nl,
-        write(' __________________'), nl, write('|_Pecas_Capturadas_|'), nl,
-        imprimirListaPecasCapturadas(branco, Lista1), nl, nl,
-        imprimirListaPecasCapturadas(preto, Lista2). */
-        
 % Imprime o tabuleiro com o estado atual do jogo
-imprimirTabuleiro([H | T]):-
+imprimirTabuleiro(TAB):-
+        converterTabuleiro(TAB,[H|T]),
         imprimirSeparadorInicial, nl,
         numeroLinhas(ListaLinhas),
-        imprimirLinhas([H | T], ListaLinhas), nl,
-        impimirIdentificadoresColunas, nl.
-        % imprimirPecasCapturadas, nl, nl. 
+        imprimirLinhas([H|T], ListaLinhas), nl,
+        impimirIdentificadoresColunas, nl. 
 
-% Inicia o jogo Corrida de Reis
-comecarCorridaReis:-
-        inicializarTabuleiro(T), imprimirTabuleiro(T). 
+converterTabuleiro([],[]).
+
+converterTabuleiro([H|T],[TAB2|TAB1]):-
+        converterTabuleiro(T,TAB1),
+        converterTabuleiroRecurse(H,TAB2).
+
+converterTabuleiroRecurse([],[]).
+
+converterTabuleiroRecurse([H|T],[TAB2|TAB1]):-
+        converterTabuleiroRecurse(T,TAB1),
+        converterCasa(H,TAB2).
+
+converterCasa({},vazio).
+
+converterCasa({_,_,TIPO,branco},TIPO).
+
+converterCasa({_,_,TIPO,preto},CASA):-
+        char_code(TIPO,CODE),
+        CODE1 is CODE-32,
+        char_code(CASA,CODE1).
 
 % Imprime o menu inicial
-imprimirMenuIncial :-
+imprimirMenuInicial :-
         nl, nl, nl,
         write(' _______________________________________________________ '), nl,
         write(' |                                                     | '), nl,
@@ -284,7 +296,7 @@ imprimirMenuIncial :-
         write(' |                                                     | '), nl,
         write(' |                   Choose an option                  | '), nl,
         write(' |_____________________________________________________| '), nl.
-                     
+
 % Imprime o menu de ajuda
 imprimirMenuAjuda :-
         write(' _______________________________________________________ '), nl,
@@ -354,47 +366,3 @@ imprimirMenuExit :-
         write(' |-----------------------------------------------------| '), nl,
         nl,
         nl.
-        
-% Selecciona o modo de jogo
-selecionarModoJogo :-
-        repeat,
-        read(Action),
-        Action > 0,
-        Action < 6,
-        modoJogo(Action).
-
-% humano vs humano
-modoJogo(1) :-
-        comecarCorridaReis.
-
-% computador vs humanos
-modoJogo(2) :-
-        comecarCorridaReis.
-
-% computador vs computador
-modoJogo(3) :-
-        comecarCorridaReis.
-
-% menu de ajuda
-modoJogo(4) :-
-        imprimirMenuAjuda,
-        repeat,
-        read(Action),
-        Action > 0,
-        Action < 2,
-        inicioAplicacao.
-
-% sair
-modoJogo(5) :-
-        imprimirMenuExit.
-
-
-% *****************
-% * inicia o jogo *
-% *****************
-start :-
-        inicioAplicacao.
-
-inicioAplicacao :-
-        imprimirMenuIncial,
-        selecionarModoJogo.
