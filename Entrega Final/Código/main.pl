@@ -1,6 +1,5 @@
 :- use_module(library(random)).
 :- use_module(library(system)).
-:- ensure_loaded('impressao.pl').
 
 clearScreen:-
         write('\33\[2J'),nl.
@@ -40,14 +39,14 @@ startPCvPC(TAB,JOGADOR,NIVEL,NIVEL1):-
 % P vs P
 getPosicaoInicial(TAB,JOGADOR,CASA):-
         write(' Jogador '), write(JOGADOR),write(' '),write('-'),write(' '),
-        write(' Insira a posição da peça que pretende '), nl,
+        write(' Insira a posicao da peca que pretende '), nl,
         write(' mover no formato LINHA/COLUNA!'),nl,
         read(PL/PC),
         validarPosicaoInicialIntroduzida(TAB,PL,PC,JOGADOR,CASA).
 
 getPosicaoInicial(TAB,JOGADOR,CASA):-
         clearScreen, imprimirTabuleiro(TAB),
-        write('Posicao inválida. Insira novamente.'),nl,
+        write('Posicao invalida. Insira novamente.'),nl,
         getPosicaoInicial(TAB,JOGADOR,CASA).
 
 % PC vs P && PC vs PC
@@ -68,13 +67,13 @@ getPosicaoInicial(TAB,2,JOGADOR,CASAI):-
 % P vs P
 getPosicaoFinal(TAB,JOGADOR,CASA,GANHOU,NEWTAB):-
         write('Jogador '), write(JOGADOR),write(' '),write('-'),write(' '),
-        write('Insira a posição para onde pretende mover a peça no formato LINHA/COLUNA!'),nl,
+        write('Insira a posicao para onde pretende mover a peca no formato LINHA/COLUNA!'),nl,
         read(FL/FC),
         validarPosicaoFinalIntroduzida(TAB,FL,FC,CASA,GANHOU,NEWTAB).
 
 getPosicaoFinal(TAB,JOGADOR,CASA,GANHOU,NEWTAB):-
         clearScreen, imprimirTabuleiro(TAB),
-        write('Posicao inválida. Insira novamente.'),nl,
+        write('Posicao invalida. Insira novamente.'),nl,
         getPosicaoFinal(TAB,JOGADOR,CASA,GANHOU,NEWTAB).
 
 % PC vs P && PC vs PC
@@ -226,6 +225,7 @@ validarReiLinha([{_,_,k,JOGADOR}|_], JOGADOR):-!.
 validarReiLinha([_|T],JOGADOR):-
         validarReiLinha(T,JOGADOR).
 
+% true se nao existir xeque
 verificarXeque(TAB):-
         getPosicoesRei(TAB,POSICAOB,POSICAOP),
         verificarXeque(TAB,POSICAOB,preto,TAB),
@@ -548,6 +548,188 @@ validarMovimentoDiagonal(PL,PC,FL,FC):-
         AY is abs(Y),
         AX=AY.
 
+% Imprime as letras que permitem identificar uma coluna do tabuleiro
+impimirIdentificadoresColunas:-
+        write('   1     2     3     4     5     6     7     8').
+
+% Lista com os numeros que permitem identificar uma linha do tabuleiro
+numeroLinhas(['1','2','3','4','5','6','7','8']).
+
+% Imprime o limite superior do tabuleiro
+imprimirSeparadorInicial:-
+        write(' _______________________________________________').
+
+% Imprime o separador de linhas do tabuleiro
+imprimirSeparadorLinhas:-
+        write('|_____|_____|_____|_____|_____|_____|_____|_____|  ').
+
+% Imprime o separador de colunas do tabuleiro
+imprimirSeparadorColunas:-
+        write('|     |     |     |     |     |     |     |     |').
+
+% Imprime uma casa do tabuleiro com a peca "Peca"
+imprimirCasa(Peca, 1):-
+        write('  '), write(Peca), write('  ').      
+imprimirCasa(_, _):-
+        write('     ').
+
+% Imprime as pecas que estao numa determinada linha do tabuleiro
+imprimirPecasLinha([]).
+imprimirPecasLinha([H | T]):- 
+        atom_length(H, L), write('|'),
+        imprimirCasa(H, L),
+        imprimirPecasLinha(T).
+
+% Imprime a linha numero "NLinha" do tabuleiro
+imprimirLinha([],[]).
+
+imprimirLinha(Linha,NLinha):-
+        imprimirSeparadorColunas, nl,
+        imprimirPecasLinha(Linha), write('|   '), write(NLinha), nl,
+        imprimirSeparadorLinhas, nl.
+
+% Imprime todas as linhas do tabuleiro
+imprimirLinhas([],[]). 
+
+imprimirLinhas([Linha|T],[NLinha|ListaLinhas]):- 
+        imprimirLinha(Linha, NLinha), 
+        imprimirLinhas(T, ListaLinhas).
+
+% Imprime o tabuleiro com o estado atual do jogo
+imprimirTabuleiro(TAB):-
+        converterTabuleiro(TAB,[H|T]),
+        imprimirSeparadorInicial, nl,
+        numeroLinhas(ListaLinhas),
+        imprimirLinhas([H|T], ListaLinhas), nl,
+        impimirIdentificadoresColunas, nl. 
+
+converterTabuleiro([],[]).
+
+converterTabuleiro([H|T],[TAB2|TAB1]):-
+        converterTabuleiro(T,TAB1),
+        converterTabuleiroRecurse(H,TAB2).
+
+converterTabuleiroRecurse([],[]).
+
+converterTabuleiroRecurse([H|T],[TAB2|TAB1]):-
+        converterTabuleiroRecurse(T,TAB1),
+        converterCasa(H,TAB2).
+
+converterCasa({},vazio).
+
+converterCasa({_,_,TIPO,branco},TIPO).
+
+converterCasa({_,_,TIPO,preto},CASA):-
+        char_code(TIPO,CODE),
+        CODE1 is CODE-32,
+        char_code(CASA,CODE1).
+
+% Imprime o menu inicial
+imprimirMenuInicial :-
+        nl, nl, nl,
+        write(' _______________________________________________________ '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |       ____                   _                      | '), nl,
+        write(' |      |  _ \\    __ _    ___  (_)  ____     ____      | '), nl,
+        write(' |      | |_) |  / _` |  / __| | | |  _ \\   / _  |     | '), nl,
+        write(' |      |  _ <  | (_| | | (__  | | | | | | | (_| |     | '), nl,
+        write(' |      |_| \\_\\  \\__,_|  \\___| |_| |_| |_|  \\__, |     | '), nl,
+        write(' |                                          |___/      | '), nl,
+        write(' |           _  __  _                                  | '), nl,
+        write(' |          | |/ / (_)  ____     ____   ___            | '), nl,
+        write(' |          |   /  | | |  _ \\   / _  | / __|           | '), nl,
+        write(' |          |   \\  | | | | | | | (_| | \\__ \\           | '), nl,
+        write(' |          |_|\\_\\ |_| |_| |_|  \\__, | |___/           | '), nl,
+        write(' |                              |___/                  | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                 Beatriz Henriques                   | '), nl,
+        write(' |                   Beatriz Velho                     | '), nl,
+        write(' |                 PLOG - FEUP 17/18                   | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |-----------------------------------------------------| '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |         1. Start Game Player vs Player              | '), nl,
+        write(' |         2. Start Game PC vs Player                  | '), nl,
+        write(' |         3. Start Game PC vs PC                      | '), nl,
+        write(' |         4. How to play                              | '), nl,
+        write(' |         5. Exit                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                   Choose an option                  | '), nl,
+        write(' |_____________________________________________________| '), nl.
+
+% Imprime o menu de ajuda
+imprimirMenuAjuda :-
+        write(' _______________________________________________________ '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |            _   _                 _                  | '), nl,
+        write(' |           | | | | _____      __ | |_ ___            | '), nl,
+        write(' |           | |_| |/ _ \\ \\ /\\ / / | __/ _ \\           | '), nl,
+        write(' |           |  _  | (_) \\ V  V /  | || (_) |          | '), nl,
+        write(' |           |_| |_|\\___/ \\_/\\_/    \\__\\___/           | '), nl,
+        write(' |                  ____ | | __ _ _   _                | '), nl,
+        write(' |                 |  _ \\| |/ _` | | | |               | '), nl,
+        write(' |                 | |_) | | (_| | |_| |               | '), nl,
+        write(' |                 | .__/|_|\\__,_|\\__, |               | '), nl,
+        write(' |                 |_|            |___/                | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |   Objective                                         | '), nl,
+        write(' |       The objective of the game is to be the first  | '), nl,
+        write(' |     to arrive with the KING at the last line of     | '), nl,
+        write(' |     the board.                                      | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |   Rules                                             | '), nl,
+        write(' |       The game is played with the chess rules, but  | '), nl,
+        write(' |     you can not use the checkmate.                  | '), nl,
+        write(' |       This game has one board, two players (white   | '), nl,
+        write(' |     and black). Each player have 1 king, 1 queen,   | '), nl,
+        write(' |     2 towers, 2 bishop and 2 horses.                | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                    Click on 1                       | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |-----------------------------------------------------| '), nl.
+
+% Imprime menu de saida
+imprimirMenuExit :-
+        write(' _______________________________________________________ '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |       ____                   _                      | '), nl,
+        write(' |      |  _ \\    __ _    ___  (_)  ____     ____      | '), nl,
+        write(' |      | |_) |  / _` |  / __| | | |  _ \\   / _  |     | '), nl,
+        write(' |      |  _ <  | (_| | | (__  | | | | | | | (_| |     | '), nl,
+        write(' |      |_| \\_\\  \\__,_|  \\___| |_| |_| |_|  \\__, |     | '), nl,
+        write(' |                                          |___/      | '), nl,
+        write(' |           _  __  _                                  | '), nl,
+        write(' |          | |/ / (_)  ____     ____   ___            | '), nl,
+        write(' |          |   /  | | |  _ \\   / _  | / __|           | '), nl,
+        write(' |          | . \\  | | | | | | | (_| | \\__ \\           | '), nl,
+        write(' |          |_|\\_\\ |_| |_| |_|  \\__, | |___/           | '), nl,
+        write(' |                              |___/                  | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |             Thanks for playing our game!            | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |-----------------------------------------------------| '), nl,
+        nl,
+        nl.
+
 % Selecciona o modo de jogo
 selecionarModoJogo :-
         repeat,
@@ -587,10 +769,10 @@ modoJogo(5) :-
         imprimirMenuExit.
 
 modoJogo(_) :-
-        write('Introduza uma opção válida!').
+        write('Introduza uma opcao valida!').
 
 lerNivelJogo(NIVEL,C):-
-        write('Escolha um nível de jogo para o computador '), write(C), write(' '), write('[1,2]'),nl,
+        write('Escolha um nivel de jogo para o computador '), write(C), write(' '), write('[1,2]'),nl,
         read(NIVEL),
         (NIVEL=1;NIVEL=2).
 
@@ -599,14 +781,14 @@ lerNivelJogo(NIVEL,C):-
 
 iniciarJogo:-
         imprimirMenuInicial,
-        write(' Selecione uma opção:'), nl,
+        write(' Selecione uma opcao:'), nl,
         selecionarModoJogo.
 
 % Inicia o jogo Corrida de Reis
 comecarCorridaReis(T):-
         inicializarTabuleiro(T).
 
-% Inicializa o tabuleiro com as peças na casa correta
+% Inicializa o tabuleiro com as pecas na casa correta
 inicializarTabuleiro(
 [
 [{},{},{},{},{},{},{},{}],
