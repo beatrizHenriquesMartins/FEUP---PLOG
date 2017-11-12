@@ -128,13 +128,13 @@ validarPosicaoInicialIntroduzida(TAB,PL,PC,JOGADOR,CASA):-
         validarDentroTabuleiro(PL,PC),
         validarPecaIntroduzidaJogador(TAB,PL,PC,JOGADOR,CASA).
 
-validarPosicaoFinalIntroduzida(TAB,FL,FC,CASA,GANHOU,L):-
+validarPosicaoFinalIntroduzida(TAB,FL,FC,CASA,GANHOU,NEWTAB):-
         validarDentroTabuleiro(FL,FC),
         validarMovimento(CASA,{FL,FC}),
         validarIntersecaoEntrePecasBase(CASA,{FL,FC},TAB),
-        mexerPecaBase(CASA,{FL,FC},TAB,L),
-        verificarXeque(L),
-        validarFimJogo(L,GANHOU).
+        mexerPecaBase(CASA,{FL,FC},TAB,NEWTAB),
+        verificarXeque(NEWTAB),
+        validarFimJogo(NEWTAB,GANHOU).
 
 jogarNivel1Inicial(TAB,JOGADOR,CASAI):-
         obterPecasTabuleiro(TAB,PECAS),
