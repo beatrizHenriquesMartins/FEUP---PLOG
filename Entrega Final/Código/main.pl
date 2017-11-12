@@ -1,5 +1,5 @@
 :- use_module(library(random)).
-:-use_module(library(system)).
+:- use_module(library(system)).
 
 clearScreen:-
         write('\33\[2J'),nl.
@@ -38,9 +38,8 @@ startPCvPC(TAB,JOGADOR,NIVEL,NIVEL1):-
    
 % P vs P
 getPosicaoInicial(TAB,JOGADOR,CASA):-
-        write(' Jogador '), write(JOGADOR),write(' '),write('-'),write(' '),
-        write(' Insira a posição da peça que pretende'), nl,
-        write(' mover no formato LINHA/COLUNA!'),nl,
+        write('Jogador '), write(JOGADOR),write(' '),write('-'),write(' '),
+        write('Insira a posição da peça que pretende mover no formato LINHA/COLUNA!'),nl,
         read(PL/PC),
         validarPosicaoInicialIntroduzida(TAB,PL,PC,JOGADOR,CASA).
 
@@ -67,8 +66,7 @@ getPosicaoInicial(TAB,2,JOGADOR,CASAI):-
 % P vs P
 getPosicaoFinal(TAB,JOGADOR,CASA,GANHOU,NEWTAB):-
         write('Jogador '), write(JOGADOR),write(' '),write('-'),write(' '),
-        write(' Insira a posição da peça que pretende'), nl,
-        write(' mover no formato LINHA/COLUNA!'),nl,
+        write('Insira a posição para onde pretende mover a peça no formato LINHA/COLUNA!'),nl,
         read(FL/FC),
         validarPosicaoFinalIntroduzida(TAB,FL,FC,CASA,GANHOU,NEWTAB).
 
@@ -128,13 +126,19 @@ validarPosicaoInicialIntroduzida(TAB,PL,PC,JOGADOR,CASA):-
         validarDentroTabuleiro(PL,PC),
         validarPecaIntroduzidaJogador(TAB,PL,PC,JOGADOR,CASA).
 
-validarPosicaoFinalIntroduzida(TAB,FL,FC,CASA,GANHOU,NEWTAB):-
+validarPosicaoFinalIntroduzida(TAB,FL,FC,CASA,GANHOU,L):-
         validarDentroTabuleiro(FL,FC),
+        write('1'), nl,
         validarMovimento(CASA,{FL,FC}),
+        write('2'), nl,
         validarIntersecaoEntrePecasBase(CASA,{FL,FC},TAB),
-        mexerPecaBase(CASA,{FL,FC},TAB,NEWTAB),
-        verificarXeque(NEWTAB),
-        validarFimJogo(NEWTAB,GANHOU).
+        write('3'), nl,
+        mexerPecaBase(CASA,{FL,FC},TAB,L),
+        write('4'), nl,
+        verificarXeque(L),
+        write('5'), nl,
+        validarFimJogo(L,GANHOU),
+        write('6'), nl.
 
 jogarNivel1Inicial(TAB,JOGADOR,CASAI):-
         obterPecasTabuleiro(TAB,PECAS),
@@ -548,7 +552,7 @@ validarMovimentoDiagonal(PL,PC,FL,FC):-
         AY is abs(Y),
         AX=AY.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 
 % Imprime as letras que permitem identificar uma coluna do tabuleiro
 impimirIdentificadoresColunas:-
@@ -735,10 +739,10 @@ modoJogo(5) :-
         write('Exit!').
 
 modoJogo(_) :-
-        write(' Introduza uma opção válida!').
+        write('Introduza uma opção válida!').
 
 lerNivelJogo(NIVEL,C):-
-        write(' Escolha um nível de jogo para o computador '), write(C), write(' '), write('[1,2]'),nl,
+        write('Escolha um nível de jogo para o computador '), write(C), write(' '), write('[1,2]'),nl,
         read(NIVEL),
         (NIVEL=1;NIVEL=2).
 
@@ -747,7 +751,7 @@ lerNivelJogo(NIVEL,C):-
 
 iniciarJogo:-
         imprimirMenuInicial,
-        write(' Selecione uma opção:'), nl,
+        write('Selecione uma opção:'), nl,
         selecionarModoJogo.
 
 % Inicia o jogo Corrida de Reis
