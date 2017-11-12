@@ -38,8 +38,9 @@ startPCvPC(TAB,JOGADOR,NIVEL,NIVEL1):-
    
 % P vs P
 getPosicaoInicial(TAB,JOGADOR,CASA):-
-        write('Jogador '), write(JOGADOR),write(' '),write('-'),write(' '),
-        write('Insira a posição da peça que pretende mover no formato LINHA/COLUNA!'),nl,
+        write(' Jogador '), write(JOGADOR),write(' '),write('-'),write(' '),
+        write(' Insira a posição da peça que pretende '), nl,
+        write(' mover no formato LINHA/COLUNA!'),nl,
         read(PL/PC),
         validarPosicaoInicialIntroduzida(TAB,PL,PC,JOGADOR,CASA).
 
@@ -699,6 +700,42 @@ imprimirMenuAjuda :-
         write(' |                    Click on 1                       | '), nl,
         write(' |                                                     | '), nl,
         write(' |-----------------------------------------------------| '), nl.
+
+% Imprime menu de saida
+imprimirMenuExit :-
+        write(' _______________________________________________________ '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |       ____                   _                      | '), nl,
+        write(' |      |  _ \\    __ _    ___  (_)  ____     ____      | '), nl,
+        write(' |      | |_) |  / _` |  / __| | | |  _ \\   / _  |     | '), nl,
+        write(' |      |  _ <  | (_| | | (__  | | | | | | | (_| |     | '), nl,
+        write(' |      |_| \\_\\  \\__,_|  \\___| |_| |_| |_|  \\__, |     | '), nl,
+        write(' |                                          |___/      | '), nl,
+        write(' |           _  __  _                                  | '), nl,
+        write(' |          | |/ / (_)  ____     ____   ___            | '), nl,
+        write(' |          |   /  | | |  _ \\   / _  | / __|           | '), nl,
+        write(' |          | . \\  | | | | | | | (_| | \\__ \\           | '), nl,
+        write(' |          |_|\\_\\ |_| |_| |_|  \\__, | |___/           | '), nl,
+        write(' |                              |___/                  | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |             Thanks for playing our game!            | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |                                                     | '), nl,
+        write(' |-----------------------------------------------------| '), nl,
+        nl,
+        nl.
         
 % Selecciona o modo de jogo
 selecionarModoJogo :-
@@ -736,7 +773,7 @@ modoJogo(4) :-
 
 % sair
 modoJogo(5) :-
-        write('Exit!').
+        imprimirMenuExit.
 
 modoJogo(_) :-
         write('Introduza uma opção válida!').
@@ -751,7 +788,7 @@ lerNivelJogo(NIVEL,C):-
 
 iniciarJogo:-
         imprimirMenuInicial,
-        write('Selecione uma opção:'), nl,
+        write(' Selecione uma opção:'), nl,
         selecionarModoJogo.
 
 % Inicia o jogo Corrida de Reis
