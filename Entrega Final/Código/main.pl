@@ -1,4 +1,5 @@
 :- use_module(library(random)).
+:-use_module(library(system)).
 
 clearScreen:-
         write('\33\[2J'),nl.
@@ -28,6 +29,7 @@ startPCvP(TAB,JOGADOR,NIVEL,computador):-
 
 % COMPUTADOR VS COMPUTADOR
 startPCvPC(TAB,JOGADOR,NIVEL,NIVEL1):-
+        sleep(3),
         imprimirTabuleiro(TAB),
         getPosicaoInicial(TAB,NIVEL,JOGADOR,CASAI),
         verificarAcabar(TAB,0,0,_,_),
@@ -126,17 +128,11 @@ validarPosicaoInicialIntroduzida(TAB,PL,PC,JOGADOR,CASA):-
 
 validarPosicaoFinalIntroduzida(TAB,FL,FC,CASA,GANHOU,L):-
         validarDentroTabuleiro(FL,FC),
-        write('1'), nl,
         validarMovimento(CASA,{FL,FC}),
-        write('2'), nl,
         validarIntersecaoEntrePecasBase(CASA,{FL,FC},TAB),
-        write('3'), nl,
         mexerPecaBase(CASA,{FL,FC},TAB,L),
-        write('4'), nl,
         verificarXeque(L),
-        write('5'), nl,
-        validarFimJogo(L,GANHOU),
-        write('6'), nl.
+        validarFimJogo(L,GANHOU).
 
 jogarNivel1Inicial(TAB,JOGADOR,CASAI):-
         obterPecasTabuleiro(TAB,PECAS),
