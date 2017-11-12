@@ -38,8 +38,9 @@ startPCvPC(TAB,JOGADOR,NIVEL,NIVEL1):-
    
 % P vs P
 getPosicaoInicial(TAB,JOGADOR,CASA):-
-        write('Jogador '), write(JOGADOR),write(' '),write('-'),write(' '),
-        write('Insira a posição da peça que pretende mover no formato LINHA/COLUNA!'),nl,
+        write(' Jogador '), write(JOGADOR),write(' '),write('-'),write(' '),
+        write(' Insira a posição da peça que pretende'), nl,
+        write(' mover no formato LINHA/COLUNA!'),nl,
         read(PL/PC),
         validarPosicaoInicialIntroduzida(TAB,PL,PC,JOGADOR,CASA).
 
@@ -66,7 +67,8 @@ getPosicaoInicial(TAB,2,JOGADOR,CASAI):-
 % P vs P
 getPosicaoFinal(TAB,JOGADOR,CASA,GANHOU,NEWTAB):-
         write('Jogador '), write(JOGADOR),write(' '),write('-'),write(' '),
-        write('Insira a posição para onde pretende mover a peça no formato LINHA/COLUNA!'),nl,
+        write(' Insira a posição da peça que pretende'), nl,
+        write(' mover no formato LINHA/COLUNA!'),nl,
         read(FL/FC),
         validarPosicaoFinalIntroduzida(TAB,FL,FC,CASA,GANHOU,NEWTAB).
 
@@ -833,10 +835,10 @@ modoJogo(5) :-
         write('Exit!').
 
 modoJogo(_) :-
-        write('Introduza uma opção válida!').
+        write(' Introduza uma opção válida!').
 
 lerNivelJogo(NIVEL,C):-
-        write('Escolha um nível de jogo para o computador '), write(C), write(' '), write('[1,2]'),nl,
+        write(' Escolha um nível de jogo para o computador '), write(C), write(' '), write('[1,2]'),nl,
         read(NIVEL),
         (NIVEL=1;NIVEL=2).
 
@@ -845,7 +847,7 @@ lerNivelJogo(NIVEL,C):-
 
 iniciarJogo:-
         imprimirMenuInicial,
-        write('Selecione uma opção:'), nl,
+        write(' Selecione uma opção:'), nl,
         selecionarModoJogo.
 
 % Inicia o jogo Corrida de Reis

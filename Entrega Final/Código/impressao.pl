@@ -175,22 +175,22 @@ inicializarTabuleiro(
 
 % Imprime as letras que permitem identificar uma coluna do tabuleiro
 impimirIdentificadoresColunas:-
-        write('   a     b     c     d     e     f     g     h').
+        write('    a     b     c     d     e     f     g     h').
 
 % Lista com os numeros que permitem identificar uma linha do tabuleiro
 numeroLinhas(['8','7','6','5','4','3','2','1']).
 
 % Imprime o limite superior do tabuleiro
 imprimirSeparadorInicial:-
-        write(' _______________________________________________').
+        write('  _______________________________________________').
 
 % Imprime o separador de linhas do tabuleiro
 imprimirSeparadorLinhas:-
-        write('|_____|_____|_____|_____|_____|_____|_____|_____|  ').
+        write(' |_____|_____|_____|_____|_____|_____|_____|_____|  ').
 
 % Imprime o separador de colunas do tabuleiro
 imprimirSeparadorColunas:-
-        write('|     |     |     |     |     |     |     |     |').
+        write('  |     |     |     |     |     |     |     |     |').
 
 % Imprime uma casa do tabuleiro com a peca "Peca"
 imprimirCasa(Peca, 2):-
@@ -351,7 +351,9 @@ imprimirMenuExit :-
         write(' |                                                     | '), nl,
         write(' |                                                     | '), nl,
         write(' |                                                     | '), nl,
-        write(' |-----------------------------------------------------| '), nl.
+        write(' |-----------------------------------------------------| '), nl,
+        nl,
+        nl.
         
 % Selecciona o modo de jogo
 selecionarModoJogo :-
