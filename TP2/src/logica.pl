@@ -45,24 +45,16 @@ validarIntersecaoDiagonal([H|T],TAB1,NLINHA,TAMANHO):-
         NLINHA1 is NLINHA + 1,
         validarIntersecaoDiagonal(T,TAB1,NLINHA1,TAMANHO).
 
-validarIntersecaoDiagonal(TAB,TAB1):-
-        getTamanhoTab(TAB,TAMANHO),
+validarIntersecaoDiagonal(TAB,TAB1,TAMANHO):-
         validarIntersecaoDiagonal(TAB,TAB1,1,TAMANHO).
 
 % Quarta Restrição - A cobra não pode tocar em si mesma
 
 validarDoisVizinhosCobra([],_,_,_,_).
 
-/*validarDoisVizinhosCobra([_|T],TAB,NLINHA,NCOLUNA,[LI/CI,LF/CF]):-
-        NLINHA = LI, NCOLUNA = CI,
-        NCOLUNA1 is NCOLUNA + 1,
-        write('INICIAL'),nl,
-        validarDoisVizinhosCobra(T,TAB,NLINHA,NCOLUNA1,[LI/CI,LF/CF]),!.*/
-
 validarDoisVizinhosCobra([_|T],TAB,NLINHA,NCOLUNA,[LI/CI,LF/CF]):-
         ((NLINHA = LF, NCOLUNA = CF) ; (NLINHA = LI, NCOLUNA = CI)),
         NCOLUNA1 is NCOLUNA + 1,
-        write('FINAL'),nl,
         validarDoisVizinhosCobra(T,TAB,NLINHA,NCOLUNA1,[LI/CI,LF/CF]),!.
 
 validarDoisVizinhosCobra([_|T],TAB,NLINHA,NCOLUNA,[LI/CI,LF/CF]):-
@@ -88,11 +80,8 @@ validarCasasCobraAroundLinha([H|T],TAB1,NLINHA,NCOLUNA):-
         H > 0,
         getElementosVizinhos(TAB1,[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]],NLINHA,NCOLUNA,LISTAVIZINHOS),
         getCasaTabuleiro(TAB1,NLINHA,NCOLUNA,CASA),
-        %global_cardinality(LISTAVIZINHOS,[-1-H,0-_]),
-        
         count(-1,LISTAVIZINHOS,#=,COUNT),
         CASA #= 0 #=> COUNT #= H,
-        
         NCOLUNA1 is NCOLUNA + 1,
         validarCasasCobraAroundLinha(T,TAB1,NLINHA,NCOLUNA1).
 
@@ -119,12 +108,6 @@ validarCasasCobraColuna(_,[]).
 
 validarCasasCobraColuna(TAB,[COLUNA-COBRACOLUNA|T]):-
         nth1(COLUNA,TAB,COLUNA_TAB),
-        /*global_cardinality(COLUNA_TAB,[-1-COBRACOLUNA,0-_]),
-        validarCasasCobraColuna(TAB,T).*/
-        /*count(-1,COLUNA_TAB,#=,COBRACOLUNA),
-        validarCasasCobraColuna(TAB,T).*/
-        /*exactly(-1,COLUNA_TAB,COBRACOLUNA),
-        validarCasasCobraColuna(TAB,T).*/
         sum(COLUNA_TAB,#=,COBRACOLUNA1),
         COBRACOLUNA1 #= (COBRACOLUNA * -1),
         validarCasasCobraColuna(TAB,T).
@@ -133,13 +116,6 @@ validarCasasCobraLinha(_,[]).
 
 validarCasasCobraLinha(TAB,[LINHA-COBRALINHA|T]):-
         nth1(LINHA,TAB,LINHA_TAB),
-        /*global_cardinality(LINHA_TAB,[-1-COBRALINHA,0-_]),
-        validarCasasCobraLinha(TAB,T).*/
-        /*count(-1,LINHA_TAB,#=,COBRALINHA),
-        validarCasasCobraLinha(TAB,T).*/
-        /*nth1(LINHA,TAB,LINHA_TAB),
-        exactly(-1,LINHA_TAB,COBRALINHA),
-        validarCasasCobraLinha(TAB,T).*/
         sum(LINHA_TAB,#=,COBRALINHA1),
         COBRALINHA1 #= (COBRALINHA * -1),
         validarCasasCobraColuna(TAB,T).
@@ -153,37 +129,10 @@ validarCasasCobraLinhaColuna(TAB,COBRA_LINHA,COBRA_COLUNA):-
 
 % Percorre-se coluna a coluna porque o inicio e fim da cobra pode estar na mesma linha
 
-/*validarUmaCasaVizinha([],_,_,_).
-
-validarUmaCasaVizinha([H|T],TAB1,NLINHA,NCOLUNA):- 
-        H = -1,
-        getElementosVizinhos(TAB1,[[-1,0],[0,1],[1,0],[0,-1]],NLINHA,NCOLUNA,LISTAVIZINHOS),
-        write('VE ISTO:  '),write(LISTAVIZINHOS),nl,
-        getCasaTabuleiro(TAB1,NLINHA,NCOLUNA,CASA),
-        count(-1,LISTAVIZINHOS,#=,COUNT),
-        write('bem bem'),nl,
-        CASA #= -1 #=> COUNT #= 1,
-        NCOLUNA1 is NCOLUNA + 1,
-        validarUmaCasaVizinha(T,TAB1,NLINHA,NCOLUNA1).
-
-validarInicioFimCobra([],_,_).
-
-validarInicioFimCobra([H|T],TAB,NLINHA):-
-        member(-1,H),
-        validarUmaCasaVizinha(H,TAB,NLINHA,1), % 1 e o NCOLUNA
-        NLINHA1 is NLINHA + 1,
-        validarInicioFimCobra(T,TAB,NLINHA1).
-
-validarInicioFimCobra([_|T],TAB1,NLINHA):-
-        NLINHA1 is NLINHA + 1,
-        validarInicioFimCobra(T,TAB1,NLINHA1).*/
-
 validarInicioFimCobra(TAB,NLINHA,NCOLUNA):-
         getElementosVizinhos(TAB,[[-1,0],[0,1],[1,0],[0,-1]],NLINHA,NCOLUNA,LISTAVIZINHOS),
-        write('VE ISTO:  '),write(LISTAVIZINHOS),nl,
         getCasaTabuleiro(TAB,NLINHA,NCOLUNA,CASA),
         count(-1,LISTAVIZINHOS,#=,COUNT),
-        write('bem bem'),nl,
         CASA #= -1 #=> COUNT #= 1.
         
 validarInicioFimCobra(_,[]).
@@ -235,9 +184,10 @@ validarDuasPosicoesCobra([H|T],NLINHA,POSICOES,POSICOES2):-
         NLINHA1 is NLINHA + 1,
         validarDuasPosicoesCobra(T,NLINHA1,POSICOES1,POSICOES2).
 
-validarDuasPosicoesCobra(TAB,POSICOES):-
-        validarDuasPosicoesCobra(TAB,1,[],POSICOES), !,
-        write(POSICOES),nl.
+validarDuasPosicoesCobra(TAB,[LI/CI,LF/CF],TAMANHO):-
+        validarDuasPosicoesCobra(TAB,1,[],[LI/CI,LF/CF]),
+        getListaComPosicoes([[-1,0],[0,1],[1,0],[0,-1]],LI,CI,TAMANHO,LISTAVIZINHOS),
+        \+member(LF-CF,LISTAVIZINHOS).
 
 /******
  utils
@@ -285,3 +235,48 @@ getCasasCobraLinhaColuna(TAMANHO,COBRA_LINHA,COBRA_COLUNA):-
                 COLUNA-COBRALINHA,
                 tabuleiroColuna(TAMANHO,COLUNA,COBRALINHA),
                 COBRA_COLUNA).
+
+% Verifica conexão de todos os -1 da solução
+
+getVizinhoConexo(TAB,[NLINHA-NCOLUNA|_],NLINHA,NCOLUNA,POSICOES):-
+        getCasaTabuleiro(TAB,NLINHA,NCOLUNA,CASA),
+        CASA = -1, 
+        \+member(NLINHA/NCOLUNA,POSICOES), !.
+
+getVizinhoConexo(TAB,[_|T],NLINHA,NCOLUNA,POSICOES):-
+        getVizinhoConexo(TAB,T,NLINHA,NCOLUNA,POSICOES).
+        
+getListaPosicoesCobra(_,LF/CF,LF/CF,_,POSICOESCOBRA,POSICOESCOBRA).
+
+getListaPosicoesCobra(TAB,LI/CI,LF/CF,TAMANHO,POSICOES,POSICOESCOBRA):-
+        getListaComPosicoes([[-1,0],[0,1],[1,0],[0,-1]],LI,CI,TAMANHO,LISTAVIZINHOS),
+        getVizinhoConexo(TAB,LISTAVIZINHOS,NLINHA,NCOLUNA,POSICOES),
+        getListaPosicoesCobra(TAB,NLINHA/NCOLUNA,LF/CF,TAMANHO,[NLINHA/NCOLUNA|POSICOES],POSICOESCOBRA).
+
+getListaPosicoesCobra(TAB,TAMANHO,[PI,PF],POSICOESCOBRA):-
+        getListaPosicoesCobra(TAB,PI,PF,TAMANHO,[PI],POSICOESCOBRA).
+
+validarTodosMenosUmEmCobraLinha([],_,_,_).
+        
+validarTodosMenosUmEmCobraLinha([H|T],POSICOESCOBRA,NLINHA,NCOLUNA):-
+        H = -1,
+        member(NLINHA/NCOLUNA,POSICOESCOBRA),
+        NCOLUNA1 is NCOLUNA + 1,
+        validarTodosMenosUmEmCobraLinha(T,POSICOESCOBRA,NLINHA,NCOLUNA1).
+
+validarTodosMenosUmEmCobraLinha([H|T],POSICOESCOBRA,NLINHA,NCOLUNA):-
+        H = 0,
+        NCOLUNA1 is NCOLUNA + 1,
+        validarTodosMenosUmEmCobraLinha(T,POSICOESCOBRA,NLINHA,NCOLUNA1).
+
+validarTodosMenosUmEmCobra([],_,_).
+        
+validarTodosMenosUmEmCobra([H|T],POSICOESCOBRA,NLINHA):-
+        validarTodosMenosUmEmCobraLinha(H,POSICOESCOBRA,NLINHA,1),
+        NLINHA1 is NLINHA + 1,
+        validarTodosMenosUmEmCobra(T,POSICOESCOBRA,NLINHA1).
+
+verificarCobraConexa(TAB,TAMANHO,POSICOES):-
+        reverse(POSICOES,POSICOES1),
+        getListaPosicoesCobra(TAB,TAMANHO,POSICOES1,POSICOESCOBRA),
+        validarTodosMenosUmEmCobra(TAB,POSICOESCOBRA,1).   

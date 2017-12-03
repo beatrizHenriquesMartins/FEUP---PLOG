@@ -8,8 +8,9 @@ imprimirMenuInicial:-
         write('|                                         |'), nl, 
         write('|    1. Iniciar jogo - Tabuleiro 6x6      |'), nl,
         write('|    2. Iniciar jogo - Tabuleiro 9x9      |'), nl,
-        write('|    3. Iniciar jogo - Tabuleiro 10x10    |'), nl,
-        write('|    4. Exit                              |'), nl,
+        write('|    3. Iniciar jogo - Tabuleiro 12x12    |'), nl,
+        write('|    4. Gerar tabuleiro com pistas        |'), nl,
+        write('|    5. Exit                              |'), nl,
         write('|                                         |'), nl,
         write('|        Escolha uma opção                |'), nl,
         write('|-----------------------------------------|'), nl.
