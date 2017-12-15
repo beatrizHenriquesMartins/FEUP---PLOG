@@ -4,29 +4,37 @@
 :-ensure_loaded('logica.pl').
 :-ensure_loaded('random.pl').
 
-/*****
- main
-******/
+/* ******
+ * main *
+ ****** */
 
+% funcao principal, ou seja, primrira funcao a ser invocada para iniciar o jogo
 run:-
         imprimirMenuInicial,
         selecionarTabuleiro.
 
+% opcoes de modo de jogo
+% opcao 1 - Iniciar jogo - Tabuleiro 6x6
 modoJogo(1):-
         iniciarJogo(6).
 
+% opcao 2 - Iniciar jogo - Tabuleiro 9x9
 modoJogo(2):-
         iniciarJogo(9).
 
+% opcao 3 - Iniciar jogo - Tabuleiro 12x12
 modoJogo(3):-
         iniciarJogo(12).
 
+% opcao 4 - Gerar tabuleiro com pistas
 modoJogo(4):-
          iniciarJogoRandom.
 
+% opcao 5 - exit
 modoJogo(5):-
          write('Exit!').
 
+% funcao para iniciar o jogo
 iniciarJogo(TAMANHO):-
         tabuleiro(TAMANHO,TAB),
         getCasasCobraLinhaColuna(TAMANHO,COBRA_LINHA,COBRA_COLUNA),
@@ -34,8 +42,7 @@ iniciarJogo(TAMANHO):-
         getSolucao(TAB,COBRA_LINHA,COBRA_COLUNA,TAB1), !,
         imprimirTabuleiro(TAB1).
 
-% Obtem a soluÃ§Ã£o de um tabuleiro
-
+% Obtem a solucao de um tabuleiro
 getSolucao(TAB,COBRA_LINHA,COBRA_COLUNA,TAB1):-
         getTamanhoTab(TAB,TAMANHO), !,
         validarDuasPosicoesCobra(TAB,POSICOES,TAMANHO),
@@ -49,7 +56,7 @@ getSolucao(TAB,COBRA_LINHA,COBRA_COLUNA,TAB1):-
         verificarCobraConexa(TAB1,TAMANHO,POSICOES).
 
 % Jogo Random
-
+% lê o tamanho do tabuleiro da opcao 4
 introduzirTamanhoTabuleiro(TAMANHO):-
         write('Introduza um tamanho para o tabuleiro valido!'),nl,
         read(TAMANHO),nl,
@@ -58,16 +65,18 @@ introduzirTamanhoTabuleiro(TAMANHO):-
 introduzirTamanhoTabuleiro(TAMANHO):-
         introduzirTamanhoTabuleiro(TAMANHO).
 
+% lê a posição inicial e final da snake no tabuleiro com random
 introduzirPosicaoInicialFinal(TAB,TAMANHO,POSICOES,TAB1):-
         write('Introduza uma posicao inicial e final para a cobra no formato:'),nl,
         write('LinhaInicial/ColunaInicial - LinhaFinal/ColunaFinal'),nl,
         read(LI/CI - LF/CF),nl,
         inicializarTabuleiroRandom(TAB,LI/CI,LF/CF,TAB1),
         validarDuasPosicoesCobra(TAB1,POSICOES,TAMANHO).
-        
+
 introduzirPosicaoInicialFinal(TAB,TAMANHO,[LI/CI,LF/CF],TAB1):-
         introduzirPosicaoInicialFinal(TAB,TAMANHO,[LI/CI,LF/CF],TAB1).
 
+% gerador de pistas
 gerarPistas(_,0,_,_,PISTAS,PISTAS).
 
 gerarPistas(TAB,NPISTAS,MAX,POSICOES,AUXPISTAS,PISTAS):-
@@ -85,6 +94,7 @@ gerarPistas(TAB,NPISTAS,MAX,POSICOES,AUXPISTAS,PISTAS):-
 gerarPistas(TAB,NPISTAS,MAX,POSICOES,AUXPISTAS,PISTAS):-
         gerarPistas(TAB,NPISTAS,MAX,POSICOES,AUXPISTAS,PISTAS).
 
+% apaga a cobra
 apagarCobraEscreverPistasLinha(_,[],[],_,_,_,_).
 
 apagarCobraEscreverPistasLinha(TAB,[_|T],[SUM1|T1],PISTAS,POSICOES,NLINHA,NCOLUNA):-
@@ -94,7 +104,6 @@ apagarCobraEscreverPistasLinha(TAB,[_|T],[SUM1|T1],PISTAS,POSICOES,NLINHA,NCOLUN
         SUM1 is abs(SUM),
         NCOLUNA1 is NCOLUNA + 1,
         apagarCobraEscreverPistasLinha(TAB,T,T1,PISTAS,POSICOES,NLINHA,NCOLUNA1).
-
 
 apagarCobraEscreverPistasLinha(TAB,[_|T],[-1|T1],PISTAS,POSICOES,NLINHA,NCOLUNA):-
         member(NLINHA/NCOLUNA,POSICOES),
@@ -118,6 +127,7 @@ apagarCobraEscreverPistas(TAB,TAMANHO,POSICOES,TAB1):-
         gerarPistas(TAB,NPISTAS,MAX,POSICOES,[],PISTAS),
         apagarCobraEscreverPistas(TAB,TAB,TAB1,PISTAS,POSICOES,1).
 
+% inicia o jogo random
 iniciarJogoRandom(TAMANHO,POSICOES,TAB):-
         imprimirTabuleiro(TAB),
         inicializarTab(TAB,TAB1),
