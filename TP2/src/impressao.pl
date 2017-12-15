@@ -1,24 +1,43 @@
-/**********
- impressao
-**********/
+/* ***********
+ * impressao *
+ *********** */
 
 imprimirMenuInicial:-
         nl,nl,
-        write('|-----------------------------------------|'), nl,
-        write('|                                         |'), nl, 
-        write('|    1. Iniciar jogo - Tabuleiro 6x6      |'), nl,
-        write('|    2. Iniciar jogo - Tabuleiro 9x9      |'), nl,
-        write('|    3. Iniciar jogo - Tabuleiro 12x12    |'), nl,
-        write('|    4. Gerar tabuleiro com pistas        |'), nl,
-        write('|    5. Exit                              |'), nl,
-        write('|                                         |'), nl,
-        write('|        Escolha uma opção                |'), nl,
-        write('|-----------------------------------------|'), nl.
+        write(' _____________________________________________________'), nl,  
+        write('|                                                    |'), nl,    
+        write('|   ____    ___    _____ ____   ____   ____  ____    |'), nl,
+        write('|  |    \\  /   \\  / ___/|     \\|    | /    ||    \\   |'), nl,
+        write('|  |  o  )|     |(   \\_ |  _  | |  | |  o  ||  _  |  |'), nl,
+        write('|  |     ||  O  | \\__  ||  |  | |  | |     ||  |  |  |'), nl,
+        write('|  |  O  ||     |  / \\ ||  |  | |  | |  _  ||  |  |  |'), nl,
+        write('|  |     ||     | \\    ||  |  | |  | |  |  ||  |  |  |'), nl,
+        write('|  |_____| \\___/   \\___||__|__||____||__|__||__|__|  |'), nl,
+        write('|           _____ ____    ____  __  _    ___         |'), nl,
+        write('|         / ___/ |    \\  /    ||  |/ ]  /  _]        |'), nl,
+        write('|        (  \\_   |  _  ||  o  ||    /  /  [_         |'), nl,
+        write('|         \\__  | |  |  ||     ||   \\  |    _]        |'), nl,
+        write('|          / \\ | |  |  ||  _  ||    \\ |   [_         |'), nl,
+        write('|         \\    | |  |  ||  |  ||  .  ||     |        |'), nl,
+        write('|          \\___| |__|__||__|__||__|\\_||_____|        | '), nl,
+        write('|                                                    |'), nl,
+        write('|                                                    |'), nl,
+        write('|                   PLOG 2017/2018                   |'), nl,
+        write('|----------------------------------------------------|'), nl,
+        write('|                                                    |'), nl, 
+        write('|          1. Iniciar jogo - Tabuleiro 6x6           |'), nl,
+        write('|          2. Iniciar jogo - Tabuleiro 9x9           |'), nl,
+        write('|          3. Iniciar jogo - Tabuleiro 12x12         |'), nl,
+        write('|          4. Gerar tabuleiro com pistas             |'), nl,
+        write('|          5. Exit                                   |'), nl,
+        write('|                                                    |'), nl,
+        write('|                 Escolha uma opção                  |'), nl,
+        write('|----------------------------------------------------|'), nl.
 
-selecionarTabuleiro:-
+selecionarTabuleiro:- 
         read(OPCAO),
         OPCAO > 0,
-        OPCAO < 5, !,
+        OPCAO < 6, !,
         modoJogo(OPCAO).
 
 selecionarTabuleiro:-
