@@ -138,7 +138,7 @@ apagarCobraEscreverPistas(TAB,TAMANHO,POSICOES,TAB1):-
 
 % inicia o jogo random
 iniciarJogoRandom(TAMANHO,POSICOES,TAB):-
-        imprimirTabuleiro(TAB),
+        % imprimirTabuleiro(TAB),
         inicializarTab(TAB,TAB1),
         validarInicioFimCobra(TAB1,POSICOES),
         validarCasasCobraAround(TAB,TAB1,1),

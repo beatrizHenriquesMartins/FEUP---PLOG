@@ -98,12 +98,6 @@ validarCasasCobraAround([H|T],TAB1,NLINHA):-
 
 % Segunda Restrição - O total de casas ocupadas pela cobra numa linha ou coluna tem que ser igual a N
 
-exactly(_, [], 0).
-exactly(X, [Y|L], N) :-
-        X #= Y #<=> B,
-        N #= M+B,
-        exactly(X, L, M).
-
 validarCasasCobraColuna(_,[]).
 
 validarCasasCobraColuna(TAB,[COLUNA-COBRACOLUNA|T]):-
