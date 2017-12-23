@@ -40,7 +40,14 @@ iniciarJogo(TAMANHO):-
         getCasasCobraLinhaColuna(TAMANHO,COBRA_LINHA,COBRA_COLUNA),
         imprimirTabuleiro(TAB),
         getSolucao(TAB,COBRA_LINHA,COBRA_COLUNA,TAB1), !,
-        imprimirTabuleiro(TAB1).
+        imprimirTabuleiro(TAB1)
+        %
+        ,
+        nl, write('iniciarJogo'), nl,
+%        problem_sem_labeling(_)
+        problem_com_labeling(_)
+        %
+        .
 
 % Obtem a solucao de um tabuleiro
 getSolucao(TAB,COBRA_LINHA,COBRA_COLUNA,TAB1):-
@@ -137,12 +144,52 @@ iniciarJogoRandom(TAMANHO,POSICOES,TAB):-
         validarIntersecaoDiagonal(TAB1,TAB1,TAMANHO),        
         maplist(labeling([]),TAB1),
         verificarCobraConexa(TAB1,TAMANHO,POSICOES),
-        imprimirTabuleiro(TAB1),
+%        imprimirTabuleiro(TAB1),
         apagarCobraEscreverPistas(TAB1,TAMANHO,POSICOES,TAB2),
-        imprimirTabuleiro(TAB2).
+        imprimirTabuleiro(TAB2)%
+        ,
+        nl, write('iniciarJogo'), nl,
+        problem_sem_labeling(_)
+%        problem_com_labeling(_)
+        %
+        .
         
 iniciarJogoRandom:-
         introduzirTamanhoTabuleiro(TAMANHO),
         gerarTabuleiro(TAMANHO,TAB),
         introduzirPosicaoInicialFinal(TAB,TAMANHO,POSICOES,TAB1),
         iniciarJogoRandom(TAMANHO,POSICOES,TAB1).
+
+% estatisticas
+problem_sem_labeling(Vars) :-
+        length(Vars,10),
+        domain(Vars,1,100),
+        all_distinct(Vars),
+        Vars = [V|Vs],
+        maximum(V,Vars),
+        sum(Vs,#=,V),
+        reset_timer,
+        labeling([],Vars),
+%       labeling([down],Vars),
+        print_time,
+        fd_statistics.
+
+problem_com_labeling(Vars) :-
+        length(Vars,10),
+        domain(Vars,1,100),
+        all_distinct(Vars),
+        Vars = [V|Vs],
+        maximum(V,Vars),
+        sum(Vs,#=,V),
+        reset_timer,
+        labeling([],Vars),
+        labeling([down],Vars),
+        print_time,
+        fd_statistics.
+
+reset_timer :- statistics(walltime,_).  
+
+print_time :-
+        statistics(walltime,[_,T]),
+        TS is ((T//10)*10)/1000,
+        nl, write('Time: '), write(TS), write('s'), nl, nl.
