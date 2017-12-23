@@ -41,12 +41,14 @@ iniciarJogo(TAMANHO):-
         imprimirTabuleiro(TAB),
         getSolucao(TAB,COBRA_LINHA,COBRA_COLUNA,TAB1), !,
         imprimirTabuleiro(TAB1)
+/*
         %
         ,
         nl, write('iniciarJogo'), nl,
-%        problem_sem_labeling(_)
-        problem_com_labeling(_)
+%        problem(_)
+        problem_inverso(_)
         %
+*/
         .
 
 % Obtem a solucao de um tabuleiro
@@ -146,12 +148,15 @@ iniciarJogoRandom(TAMANHO,POSICOES,TAB):-
         verificarCobraConexa(TAB1,TAMANHO,POSICOES),
 %        imprimirTabuleiro(TAB1),
         apagarCobraEscreverPistas(TAB1,TAMANHO,POSICOES,TAB2),
-        imprimirTabuleiro(TAB2)%
+        imprimirTabuleiro(TAB2)
+/*
+        %
         ,
         nl, write('iniciarJogo'), nl,
-        problem_sem_labeling(_)
-%        problem_com_labeling(_)
+%        problem(_)
+        problem_inverso(_)
         %
+*/
         .
         
 iniciarJogoRandom:-
@@ -161,7 +166,7 @@ iniciarJogoRandom:-
         iniciarJogoRandom(TAMANHO,POSICOES,TAB1).
 
 % estatisticas
-problem_sem_labeling(Vars) :-
+problem(Vars) :-
         length(Vars,10),
         domain(Vars,1,100),
         all_distinct(Vars),
@@ -174,7 +179,7 @@ problem_sem_labeling(Vars) :-
         print_time,
         fd_statistics.
 
-problem_com_labeling(Vars) :-
+problem_inverso(Vars) :-
         length(Vars,10),
         domain(Vars,1,100),
         all_distinct(Vars),

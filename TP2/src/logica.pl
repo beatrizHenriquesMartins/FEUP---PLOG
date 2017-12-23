@@ -2,9 +2,9 @@
 :-use_module(library(lists)).
 :-use_module(library(between)).
 
-/***************
- logica do jogo
-***************/
+/* ****************
+ * logica do jogo *
+ **************** */
 
 % Quinta Restrição - Nao pode haver diagonais
 
@@ -189,9 +189,9 @@ validarDuasPosicoesCobra(TAB,[LI/CI,LF/CF],TAMANHO):-
         getListaComPosicoes([[-1,0],[0,1],[1,0],[0,-1]],LI,CI,TAMANHO,LISTAVIZINHOS),
         \+member(LF-CF,LISTAVIZINHOS).
 
-/******
- utils
-*******/
+/* *******
+ * utils *
+ ******* */
 
 getListaComPosicoes([],_,_,_,[]).
 
